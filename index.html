@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuizLand Clone</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #1e1e24;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        header {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        #score-board {
+            font-size: 24px;
+            background: #2a2a32;
+            padding: 10px 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        /* Игровое поле (Сетка лабиринта) */
+        #map {
+            display: grid;
+            grid-template-columns: repeat(5, 80px);
+            grid-template-rows: repeat(5, 80px);
+            gap: 10px;
+            background: #2a2a32;
+            padding: 15px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+        }
+
+        .tile {
+            background: #444452;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            user-select: none;
+            box-shadow: inset 0 -4px 0 rgba(0,0,0,0.2);
+        }
+
+        .tile:hover {
+            transform: scale(1.05);
+            background: #555566;
+        }
+
+        /* Состояния плиток */
+        .tile.closed {
+            background: #33333d;
+            color: transparent;
+        }
+
+        .tile.opened {
+            background: #3498db;
+            color: white;
+            cursor: default;
+            transform: none;
+        }
+
+        .tile.solved {
+            background: #2ecc71;
+            color: white;
+            cursor: default;
+        }
+
+        /* Модальное окно вопроса */
+        #quiz-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        .modal-content {
+            background: #2a2a32;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        #question-text {
+            font-size: 20px;
+            margin-bottom: 25px;
+        }
+
+        .options-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+
+        .btn-option {
+            background: #444452;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.2s;
+            text-align: left;
+            padding-left: 20px;
+        }
+
+        .btn-option:hover {
+            background: #57576c;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>QuizzLand Prototype</h1>
+        <div id="score-board">Монеты: <span id="coins">0</span> 🪙</div>
+    </header>
+
+    <!-- Игровое поле -->
+    <div id="map"></div>
+
+    <!-- Окно с вопросом -->
+    <div id="quiz-modal">
+        <div class="modal-content">
+            <h3 id="question-text">Тут будет вопрос?</h3>
+            <div class="options-container" id="options">
+                <!-- Кнопки ответов вставятся через JS -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // База вопросов (пока захардкожено для теста)
+        const questionsDatabase = [
+            { q: "Какой язык программирования используется для создания скриптов в Unity?", a: ["C#", "C++", "Python", "Java"], correct: 0 },
+            { q: "Как называется столица Японии?", a: ["Пекин", "Киото", "Сеул", "Токио"], correct: 3 },
+            { q: "Сколько бит в одном байте?", a: ["4", "8", "16", "32"], correct: 1 },
+            { q: "Какая планета ближе всего к Солнцу?", a: ["Венера", "Марс", "Меркурий", "Земля"], correct: 2 },
+            { q: "Какой тег в HTML используется для создания ссылок?", a: ["<link>", "<a>", "<href>", "<url>"], correct: 1 }
+        ];
+
+        let coins = 0;
+        let currentTileIndex = null;
+        const mapSize = 25; // Сетка 5х5
+
+        const mapElement = document.getElementById('map');
+        const modalElement = document.getElementById('quiz-modal');
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options');
+        const coinsCounter = document.getElementById('coins');
+
+        // Генерируем карту
+        function createMap() {
+            for (let i = 0; i < mapSize; i++) {
+                const tile = document.createElement('div');
+                tile.classList.add('tile', 'closed');
+                tile.innerText = "?";
+                tile.dataset.index = i;
+
+                tile.addEventListener('click', () => handleTileClick(i, tile));
+                mapElement.appendChild(tile);
+            }
+        }
+
+        // Клик по плитке лабиринта
+        function handleTileClick(index, tile) {
+            if (tile.classList.contains('solved') || tile.classList.contains('opened')) return;
+
+            currentTileIndex = index;
+            tile.classList.remove('closed');
+            tile.classList.add('opened');
+
+            // Выбираем случайный вопрос
+            const randomQuestion = questionsDatabase[Math.floor(Math.random() * questionsDatabase.length)];
+            showQuestion(randomQuestion);
+        }
+
+        // Показываем модалку вопроса
+        function showQuestion(questionData) {
+            questionText.innerText = questionData.q;
+            optionsContainer.innerHTML = '';
+
+            questionData.a.forEach((option, idx) => {
+                const btn = document.createElement('button');
+                btn.classList.add('btn-option');
+                btn.innerText = option;
+                btn.addEventListener('click', () => checkAnswer(idx, questionData.correct));
+                optionsContainer.appendChild(btn);
+            });
+
+            modalElement.style.display = 'flex';
+        }
+
+        // Проверка ответа
+        function checkAnswer(selectedIdx, correctIdx) {
+            modalElement.style.display = 'none';
+            const activeTile = document.querySelector(`.tile[data-index='${currentTileIndex}']`);
+
+            if (selectedIdx === correctIdx) {
+                // Правильно
+                activeTile.classList.remove('opened');
+                activeTile.classList.add('solved');
+                activeTile.innerText = "✔️";
+                coins += 10;
+                coinsCounter.innerText = coins;
+            } else {
+                // Неправильно
+                activeTile.classList.remove('opened');
+                activeTile.classList.add('closed');
+                activeTile.innerText = "?";
+                alert("Неверно! Попробуй открыть другую плитку.");
+            }
+        }
+
+        // Старт игры
+        createMap();
+    </script>
+</body>
+</html>
