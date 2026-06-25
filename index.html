@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QuizLand Premium</title>
+    <title>QuizLand Premium Neo</title>
     <style>
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
         }
 
         body {
-            background: #141419;
+            background: radial-gradient(circle at center, #1e1e30 0%, #0f0f15 100%);
             color: #ffffff;
             display: flex;
             justify-content: center;
@@ -40,267 +40,346 @@
             display: flex;
         }
 
-        /* Главное меню */
-        #menu-screen {
-            background: linear-gradient(135deg, #1e1e24 0%, #141419 100%);
+        /* Эффект размытия заднего фона для футуризма */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+            text-align: center;
         }
 
+        /* Главное меню */
         .game-title {
-            font-size: 48px;
-            font-weight: 800;
-            margin-bottom: 40px;
+            font-size: 56px;
+            font-weight: 900;
+            margin-bottom: 10px;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            color: #3498db;
-            text-shadow: 0 4px 15px rgba(52, 152, 219, 0.4);
+            letter-spacing: 4px;
+            background: linear-gradient(45deg, #00c6ff, #0072ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 4px 10px rgba(0, 114, 255, 0.3));
+        }
+
+        .game-subtitle {
+            color: #70708fda;
+            font-size: 16px;
+            margin-bottom: 40px;
+            letter-spacing: 1px;
         }
 
         .btn-menu {
-            background: #3498db;
+            background: linear-gradient(135deg, #0072ff 0%, #00c6ff 100%);
             color: white;
             border: none;
-            padding: 15px 40px;
+            padding: 16px 50px;
             font-size: 20px;
             font-weight: bold;
-            border-radius: 30px;
+            border-radius: 50px;
             cursor: pointer;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            transition: all 0.2s ease;
+            box-shadow: 0 6px 20px rgba(0, 114, 255, 0.4);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .btn-menu:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(52, 152, 219, 0.5);
-            background: #2980b9;
+            transform: translateY(-4px) scale(1.03);
+            box-shadow: 0 10px 30px rgba(0, 114, 255, 0.6);
         }
 
         /* Выбор уровней */
-        #levels-screen {
-            background: #1a1a22;
-        }
-
         .levels-container {
             display: flex;
-            gap: 20px;
+            gap: 25px;
             margin-top: 30px;
         }
 
         .level-card {
-            background: #2a2a35;
-            width: 140px;
-            height: 180px;
-            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            width: 160px;
+            height: 200px;
+            border-radius: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: all 0.2s;
-            border: 2px solid #333;
+            transition: all 0.3s ease;
         }
 
         .level-card:hover {
-            transform: scale(1.05);
-            border-color: #3498db;
+            transform: translateY(-10px);
+            background: rgba(0, 114, 255, 0.1);
+            border-color: #00c6ff;
+            box-shadow: 0 15px 30px rgba(0, 198, 255, 0.2);
         }
 
         .level-card.locked {
-            opacity: 0.5;
+            opacity: 0.3;
             cursor: not-allowed;
         }
 
         .level-card .num {
-            font-size: 36px;
-            font-weight: bold;
+            font-size: 48px;
+            font-weight: 800;
+            background: linear-gradient(to bottom, #ffffff, #a0a0c0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             margin-bottom: 10px;
         }
 
-        /* Игровой экран */
-        #game-screen {
-            background: #141419;
+        .level-card .desc {
+            font-size: 13px;
+            color: #8a8ab0;
         }
 
+        /* Игровой экран */
         header {
             width: 100%;
-            max-width: 500px;
+            max-width: 550px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         .back-btn {
-            background: none;
-            border: 1px solid #444;
-            color: #aaa;
-            padding: 8px 15px;
-            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ccc;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: 600;
             cursor: pointer;
+            transition: all 0.2s;
         }
 
-        .back-btn:hover { color: #fff; border-color: #fff; }
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            color: #fff;
+            border-color: rgba(255, 255, 255, 0.3);
+        }
 
         #score-board {
-            font-size: 20px;
-            background: #22222b;
-            padding: 8px 15px;
-            border-radius: 20px;
+            font-size: 18px;
+            font-weight: 700;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 10px 22px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
-        /* Игровая карта лабиринта */
+        /* Игровая карта */
         #map-container {
-            background: #22222b;
-            padding: 15px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            background: rgba(20, 20, 30, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 28px;
+            box-shadow: 0 30px 70px rgba(0,0,0,0.6);
         }
 
         #map {
             display: grid;
-            gap: 8px;
+            gap: 12px;
         }
 
         .tile {
-            background: #333344;
-            border-radius: 8px;
+            border-radius: 14px;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
-            font-weight: bold;
+            font-size: 22px;
+            font-weight: 700;
             user-select: none;
-            box-shadow: inset 0 -3px 0 rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
         }
 
-        .tile:hover {
-            background: #444458;
-            transform: scale(1.05);
+        .tile.closed {
+            background: linear-gradient(135deg, #2a2b3d 0%, #1e1f2f 100%);
+            color: #4a4c6d;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15), inset 0 2px 0 rgba(255,255,255,0.05);
         }
 
-        .tile.closed { color: transparent; background: #2a2a35; }
-        .tile.opened { background: #3498db; color: white; cursor: default; transform: none; }
-        .tile.solved { background: #2ecc71; color: white; cursor: default; transform: none; }
+        .tile.closed:hover {
+            transform: scale(1.08);
+            background: linear-gradient(135deg, #35374e 0%, #23253a 100%);
+            color: #00c6ff;
+            box-shadow: 0 8px 20px rgba(0, 198, 255, 0.2);
+        }
 
-        /* Модальное окно вопроса */
+        .tile.opened {
+            background: linear-gradient(135deg, #0072ff 0%, #00c6ff 100%);
+            color: white;
+            cursor: default;
+            box-shadow: 0 0 20px rgba(0, 198, 255, 0.4);
+        }
+
+        .tile.solved {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            cursor: default;
+            box-shadow: 0 0 20px rgba(56, 239, 125, 0.3);
+        }
+
+        /* Модальное окно */
         #quiz-modal {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85);
+            background: rgba(5, 5, 10, 0.85);
+            backdrop-filter: blur(8px);
             align-items: center;
             justify-content: center;
             z-index: 10;
         }
 
         .modal-content {
-            background: #22222b;
-            padding: 25px;
-            border-radius: 20px;
+            background: #191926;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 30px;
+            border-radius: 28px;
             width: 90%;
-            max-width: 450px;
+            max-width: 480px;
             text-align: center;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.7);
+            animation: modalScale 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        /* Картинка к вопросу */
+        @keyframes modalScale {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        /* Изображение вопроса */
         .question-image {
             width: 100%;
-            height: 180px;
+            height: 200px;
             object-fit: cover;
-            border-radius: 12px;
-            margin-bottom: 15px;
-            background: #333;
+            border-radius: 18px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
         }
 
         #question-text {
-            font-size: 18px;
-            margin-bottom: 20px;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 25px;
             line-height: 1.4;
+            color: #f0f0f5;
         }
 
         .options-container {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 10px;
-            margin-bottom: 20px;
+            gap: 12px;
+            margin-bottom: 25px;
         }
 
         .btn-option {
-            background: #333344;
-            color: white;
-            border: none;
-            padding: 14px;
-            border-radius: 10px;
-            font-size: 15px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            color: #d1d1e0;
+            padding: 16px;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 500;
             cursor: pointer;
-            transition: background 0.2s;
+            transition: all 0.2s ease;
             text-align: left;
-            padding-left: 15px;
+            padding-left: 20px;
         }
 
-        .btn-option:hover { background: #444458; }
-        .btn-option.wrong { background: #e74c3c !important; }
+        .btn-option:hover {
+            background: rgba(255, 255, 255, 0.09);
+            color: #fff;
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateX(4px);
+        }
 
-        /* Блок подсказок */
+        /* Подсказки */
         .hints-container {
             display: flex;
             justify-content: center;
             gap: 15px;
-            border-top: 1px solid #333;
-            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding-top: 20px;
         }
 
         .btn-hint {
-            background: #f1c40f;
-            color: #141419;
+            background: linear-gradient(135deg, #ff9900 0%, #ff5500 100%);
+            color: white;
             border: none;
-            padding: 8px 15px;
-            border-radius: 15px;
-            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: 700;
             font-size: 13px;
             cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 85, 0, 0.3);
             transition: all 0.2s;
         }
 
-        .btn-hint:hover:not(:disabled) { transform: translateY(-2px); background: #f39c12; }
-        .btn-hint:disabled { opacity: 0.3; cursor: not-allowed; }
+        .btn-hint:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 85, 0, 0.5);
+        }
+
+        .btn-hint:disabled {
+            opacity: 0.25;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
     </style>
 </head>
 <body>
 
     <!-- 1. ГЛАВНОЕ МЕНЮ -->
     <div id="menu-screen" class="screen active">
-        <h1 class="game-title">QuizzLand</h1>
-        <button class="btn-menu" onclick="switchScreen('levels-screen')">Играть</button>
+        <div class="glass-panel">
+            <h1 class="game-title">QuizzLand</h1>
+            <div class="game-subtitle">Интеллектуальный нео-лабиринт</div>
+            <button class="btn-menu" onclick="switchScreen('levels-screen')">Начать игру</button>
+        </div>
     </div>
 
     <!-- 2. ВЫБОР УРОВНЕЙ -->
     <div id="levels-screen" class="screen">
-        <h1 style="margin-bottom: 20px;">Выберите уровень</h1>
-        <div class="levels-container">
-            <div class="level-card" onclick="startLevel(1, 4)">
-                <div class="num">1</div>
-                <div>Легкий (4х4)</div>
+        <div class="glass-panel" style="padding: 50px 40px;">
+            <h2 style="font-size: 28px; margin-bottom: 10px;">Выберите главу</h2>
+            <div class="levels-container">
+                <div class="level-card" onclick="startLevel(1, 4)">
+                    <div class="num">1</div>
+                    <div class="desc">Разведка (4х4)</div>
+                </div>
+                <div class="level-card" onclick="startLevel(2, 5)">
+                    <div class="num">2</div>
+                    <div class="desc">Лабиринт (5х5)</div>
+                </div>
+                <div class="level-card locked">
+                    <div class="num">3</div>
+                    <div class="desc">Скоро доступно</div>
+                </div>
             </div>
-            <div class="level-card" onclick="startLevel(2, 5)">
-                <div class="num">2</div>
-                <div>Средний (5х5)</div>
-            </div>
-            <div class="level-card locked">
-                <div class="num">3</div>
-                <div>Скоро...</div>
-            </div>
+            <button class="back-btn" style="margin-top: 40px;" onclick="switchScreen('menu-screen')">В главное меню</button>
         </div>
-        <button class="back-btn" style="margin-top: 40px;" onclick="switchScreen('menu-screen')">Назад в меню</button>
     </div>
 
     <!-- 3. ИГРОВОЙ ЭКРАН -->
     <div id="game-screen" class="screen">
         <header>
-            <button class="back-btn" onclick="switchScreen('levels-screen')">Выйти</button>
-            <div id="score-board">Монеты: <span id="coins">50</span> 🪙</div>
+            <button class="back-btn" onclick="switchScreen('levels-screen')">Сдаться</button>
+            <div id="score-board"><span id="coins">100</span> 🪙</div>
         </header>
 
         <div id="map-container">
@@ -311,47 +390,66 @@
     <!-- МОДАЛЬНОЕ ОКНО ВОПРОСА -->
     <div id="quiz-modal">
         <div class="modal-content">
-            <img id="question-img" class="question-image" src="" alt="Иллюстрация к вопросу">
-            <h3 id="question-text">Вопрос</h3>
+            <img id="question-img" class="question-image" src="" alt="Quizland pic">
+            <h3 id="question-text">Загрузка вопроса...</h3>
             <div class="options-container" id="options"></div>
             
-            <!-- Подсказки -->
             <div class="hints-container">
-                <button id="hint-5050" class="btn-hint" onclick="useHint5050()">50/50 (20 🪙)</button>
-                <button id="hint-skip" class="btn-hint" onclick="useHintSkip()">Пропустить (30 🪙)</button>
+                <button id="hint-5050" class="btn-hint" onclick="useHint5050()">50 / 50 (25 🪙)</button>
+                <button id="hint-skip" class="btn-hint" onclick="useHintSkip()">Пропуск (40 🪙)</button>
             </div>
         </div>
     </div>
 
     <script>
-        // База вопросов с тематическими изображениями
+        // Обширная база неповторяющихся вопросов
         const questionsDatabase = [
             { q: "Какая планета Солнечной системы самая большая?", a: ["Сатурн", "Юпитер", "Нептун", "Земля"], correct: 1, img: "https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4?w=500&q=80" },
             { q: "Какая страна является родиной пиццы?", a: ["Франция", "Испания", "Италия", "Греция"], correct: 2, img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500&q=80" },
-            { q: "Что изображено на картине Леонардо да Винчи?", a: ["Мона Лиза", "Звездная ночь", "Крик", "Герника"], correct: 0, img: "https://images.unsplash.com/photo-1580136579312-94651dfd596d?w=500&q=80" },
-            { q: "Какое животное является самым быстрым на суше?", a: ["Лев", "Гепард", "Антилопа", "Сапсан"], correct: 1, img: "https://images.unsplash.com/photo-1517849845537-4d257902454a?w=500&q=80" },
-            { q: "Какой океан самый большой на Земле?", a: ["Атлантический", "Индийский", "Тихий", "Северный Ледовитый"], correct: 2, img: "https://images.unsplash.com/photo-1551244072-5d12893278ab?w=500&q=80" }
+            { q: "Что изображено на знаменитой картине Леонардо да Винчи?", a: ["Мона Лиза", "Звездная ночь", "Крик", "Герника"], correct: 0, img: "https://images.unsplash.com/photo-1580136579312-94651dfd596d?w=500&q=80" },
+            { q: "Какое животное является самым быстрым на суше?", a: ["Лев", "Гепард", "Антилопа", "Пума"], correct: 1, img: "https://images.unsplash.com/photo-1517849845537-4d257902454a?w=500&q=80" },
+            { q: "Какой океан самый большой по площади на Земле?", a: ["Атлантический", "Индийский", "Тихий", "Северный Ледовитый"], correct: 2, img: "https://images.unsplash.com/photo-1551244072-5d12893278ab?w=500&q=80" },
+            { q: "Какая игра стала самой продаваемой в истории индустрии?", a: ["GTA V", "Minecraft", "Tetris", "Wii Sports"], correct: 1, img: "https://images.unsplash.com/photo-1605901309584-818e25960a8f?w=500&q=80" },
+            { q: "В каком культовом фильме звучит фраза: «Я вернусь» (I'll be back)?", a: ["Терминатор", "Крепкий Орешек", "Рэмбо", "Хищник"], correct: 0, img: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=500&q=80" },
+            { q: "Какая химическая формула у обычной питьевой воды?", a: ["CO2", "NaCl", "H2O", "O2"], correct: 2, img: "https://images.unsplash.com/photo-1548811294-9465a4a240d5?w=500&q=80" },
+            { q: "Какое культовое аниме рассказывает о ниндзя по имени Наруто?", a: ["Блич", "Ван Пис", "Наруто", "Тетрадь Смерти"], correct: 2, img: "https://images.unsplash.com/photo-1578632767115-351597cf2477?w=500&q=80" },
+            { q: "Какое культовое существо красуется на логотипе игры Witcher 3?", a: ["Медведь", "Волк", "Дракон", "Грифон"], correct: 1, img: "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=500&q=80" },
+            { q: "Какая валюта используется на территории Японии?", a: ["Юань", "Вон", "Йена", "Доллар"], correct: 2, img: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=500&q=80" },
+            { q: "Сколько игроков находится на поле в одной футбольной команде?", a: ["9", "10", "11", "12"], correct: 2, img: "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=500&q=80" },
+            { q: "Какой самый высокий пик (гора) на нашей планете?", a: ["Килиманджаро", "Эльбрус", "Эверест", "К2"], correct: 2, img: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=500&q=80" },
+            { q: "Какая компания создала культовую операционную систему Windows?", a: ["Apple", "Google", "Microsoft", "Linux"], correct: 2, img: "https://images.unsplash.com/photo-1616440347437-b1c73416efc2?w=500&q=80" },
+            { q: "Из какого дерева, согласно мифам, делают колья против вампиров?", a: ["Дуб", "Осина", "Береза", "Тополь"], correct: 1, img: "https://images.unsplash.com/photo-1502082553048-f009c37129b9?w=500&q=80" },
+            { q: "Какая птица является официальным символом США?", a: ["Белоголовый орлан", "Беркут", "Сокол", "Ворон"], correct: 0, img: "https://images.unsplash.com/photo-1611689342806-0863700ce1e4?w=500&q=80" },
+            { q: "Какой цвет получится, если смешать синюю и желтую краску?", a: ["Фиолетовый", "Зеленый", "Оранжевый", "Коричневый"], correct: 1, img: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=500&q=80" },
+            { q: "Какое изобретение сделало знаменитыми братьев Райт?", a: ["Автомобиль", "Самолет", "Паровоз", "Телефон"], correct: 1, img: "https://images.unsplash.com/photo-1483450388369-9ed95738483c?w=500&q=80" },
+            { q: "Какой металл плавится прямо в руках при комнатной температуре?", a: ["Ртуть", "Галлий", "Свинец", "Натрий"], correct: 1, img: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=500&q=80" },
+            { q: "Кто написал культовую фантастическую трилогию «Властелин колец»?", a: ["Джордж Мартин", "Джоан Роулинг", "Дж. Р. Р. Толкин", "Стивен Кинг"], correct: 2, img: "https://images.unsplash.com/photo-1629992184111-c116ba06466c?w=500&q=80" }
         ];
 
-        let coins = 50; // Начинаем с балансом для проверки подсказок
+        let poolOfQuestions = []; // Динамический пул вопросов без повторений
+        let coins = 100;
         let currentTileIndex = null;
         let currentQuestion = null;
 
-        // Переключение экранов
+        // Инициализация/сброс пула неповторяющихся вопросов
+        function refreshQuestionPool() {
+            poolOfQuestions = [...questionsDatabase];
+        }
+
         function switchScreen(screenId) {
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
             document.getElementById(screenId).classList.add('active');
         }
 
-        // Запуск конкретного уровня
         function startLevel(levelNum, size) {
             switchScreen('game-screen');
+            refreshQuestionPool(); // Обновляем вопросы для каждого уровня заново
+            
             const mapElement = document.getElementById('map');
             mapElement.innerHTML = '';
             
-            // Динамически настраиваем размеры сетки лабиринта
-            mapElement.style.gridTemplateColumns = `repeat(${size}, 75px)`;
-            mapElement.style.gridTemplateRows = `repeat(${size}, 75px)`;
+            mapElement.style.gridTemplateColumns = `repeat(${size}, 80px)`;
+            mapElement.style.gridTemplateRows = `repeat(${size}, 80px)`;
 
             for (let i = 0; i < size * size; i++) {
                 const tile = document.createElement('div');
@@ -368,10 +466,17 @@
             if (tile.classList.contains('solved') || tile.classList.contains('opened')) return;
 
             currentTileIndex = index;
-            tile.classList.remove('closed');
-            tile.classList.add('opened');
+            tile.className = 'tile opened';
 
-            currentQuestion = questionsDatabase[Math.floor(Math.random() * questionsDatabase.length)];
+            // Если все вопросы закончились, перезапускаем пул
+            if (poolOfQuestions.length === 0) {
+                refreshQuestionPool();
+            }
+
+            // Достаем случайный вопрос и УДАЛЯЕМ его из текущего пула
+            const randomIndex = Math.floor(Math.random() * poolOfQuestions.length);
+            currentQuestion = poolOfQuestions.splice(randomIndex, 1)[0];
+
             showQuestion(currentQuestion);
         }
 
@@ -381,9 +486,8 @@
             const optionsContainer = document.getElementById('options');
             optionsContainer.innerHTML = '';
 
-            // Восстанавливаем доступность кнопок подсказок
-            document.getElementById('hint-5050').disabled = coins < 20;
-            document.getElementById('hint-skip').disabled = coins < 30;
+            document.getElementById('hint-5050').disabled = coins < 25;
+            document.getElementById('hint-skip').disabled = coins < 40;
 
             questionData.a.forEach((option, idx) => {
                 const btn = document.createElement('button');
@@ -403,8 +507,8 @@
 
             if (selectedIdx === correctIdx) {
                 activeTile.className = 'tile solved';
-                activeTile.innerText = "✔️";
-                coins += 15;
+                activeTile.innerText = "✦";
+                coins += 20;
             } else {
                 activeTile.className = 'tile closed';
                 activeTile.innerText = "?";
@@ -412,30 +516,31 @@
             updateUI();
         }
 
-        // ПОДСКАЗКА: 50/50
         function useHint5050() {
-            if (coins < 20) return;
-            coins -= 20;
+            if (coins < 25) return;
+            coins -= 25;
             updateUI();
             document.getElementById('hint-5050').disabled = true;
 
             const buttons = Array.from(document.querySelectorAll('.btn-option'));
             let wrongButtons = buttons.filter(btn => parseInt(btn.dataset.idx) !== currentQuestion.correct);
             
-            // Случайно удаляем два неверных ответа
             wrongButtons.sort(() => Math.random() - 0.5);
-            wrongButtons.slice(0, 2).forEach(btn => btn.style.visibility = 'hidden');
+            wrongButtons.slice(0, 2).forEach(btn => {
+                btn.style.opacity = '0.15';
+                btn.disabled = true;
+                btn.style.cursor = 'not-allowed';
+            });
         }
 
-        // ПОДСКАЗКА: Пропустить вопрос
         function useHintSkip() {
-            if (coins < 30) return;
-            coins -= 30;
+            if (coins < 40) return;
+            coins -= 40;
             document.getElementById('quiz-modal').style.display = 'none';
             
             const activeTile = document.querySelector(`.tile[data-index='${currentTileIndex}']`);
             activeTile.className = 'tile solved';
-            activeTile.innerText = "⭐";
+            activeTile.innerText = "★";
             
             updateUI();
         }
