@@ -40,7 +40,7 @@
             display: flex;
         }
 
-        /* Эффект размытия заднего фона для футуризма */
+        /* Глассморфизм */
         .glass-panel {
             background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(10px);
@@ -117,11 +117,7 @@
             box-shadow: 0 15px 30px rgba(0, 198, 255, 0.2);
         }
 
-        .level-card.locked {
-            opacity: 0.3;
-            cursor: not-allowed;
-        }
-
+        .level-card.locked { opacity: 0.3; cursor: not-allowed; }
         .level-card .num {
             font-size: 48px;
             font-weight: 800;
@@ -130,11 +126,7 @@
             -webkit-text-fill-color: transparent;
             margin-bottom: 10px;
         }
-
-        .level-card .desc {
-            font-size: 13px;
-            color: #8a8ab0;
-        }
+        .level-card .desc { font-size: 13px; color: #8a8ab0; }
 
         /* Игровой экран */
         header {
@@ -156,12 +148,7 @@
             cursor: pointer;
             transition: all 0.2s;
         }
-
-        .back-btn:hover {
-            background: rgba(255, 255, 255, 0.15);
-            color: #fff;
-            border-color: rgba(255, 255, 255, 0.3);
-        }
+        .back-btn:hover { background: rgba(255, 255, 255, 0.15); color: #fff; }
 
         #score-board {
             font-size: 18px;
@@ -173,7 +160,6 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
         /* Игровая карта */
@@ -184,53 +170,34 @@
             border-radius: 28px;
             box-shadow: 0 30px 70px rgba(0,0,0,0.6);
         }
-
-        #map {
-            display: grid;
-            gap: 12px;
-        }
+        #map { display: grid; gap: 12px; }
 
         .tile {
             border-radius: 14px;
             cursor: pointer;
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.25s ease;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 22px;
             font-weight: 700;
             user-select: none;
-            position: relative;
-            overflow: hidden;
         }
 
         .tile.closed {
             background: linear-gradient(135deg, #2a2b3d 0%, #1e1f2f 100%);
             color: #4a4c6d;
             border: 1px solid rgba(255, 255, 255, 0.03);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15), inset 0 2px 0 rgba(255,255,255,0.05);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
         }
-
         .tile.closed:hover {
             transform: scale(1.08);
             background: linear-gradient(135deg, #35374e 0%, #23253a 100%);
             color: #00c6ff;
-            box-shadow: 0 8px 20px rgba(0, 198, 255, 0.2);
         }
 
-        .tile.opened {
-            background: linear-gradient(135deg, #0072ff 0%, #00c6ff 100%);
-            color: white;
-            cursor: default;
-            box-shadow: 0 0 20px rgba(0, 198, 255, 0.4);
-        }
-
-        .tile.solved {
-            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
-            color: white;
-            cursor: default;
-            box-shadow: 0 0 20px rgba(56, 239, 125, 0.3);
-        }
+        .tile.opened { background: linear-gradient(135deg, #0072ff 0%, #00c6ff 100%); color: white; cursor: default; }
+        .tile.solved { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); color: white; cursor: default; }
 
         /* Модальное окно */
         #quiz-modal {
@@ -247,104 +214,131 @@
         .modal-content {
             background: #191926;
             border: 1px solid rgba(255, 255, 255, 0.08);
-            padding: 30px;
+            padding: 25px 30px;
             border-radius: 28px;
             width: 90%;
             max-width: 480px;
             text-align: center;
             box-shadow: 0 25px 60px rgba(0,0,0,0.7);
-            animation: modalScale 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        @keyframes modalScale {
-            from { transform: scale(0.8); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
+        /* Категория и изображение */
+        .category-badge {
+            display: inline-block;
+            background: rgba(0, 198, 255, 0.15);
+            color: #00c6ff;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(0, 198, 255, 0.3);
         }
 
-        /* Изображение вопроса */
         .question-image {
             width: 100%;
-            height: 200px;
+            height: 180px;
             object-fit: cover;
             border-radius: 18px;
             margin-bottom: 20px;
             border: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
         }
 
         #question-text {
-            font-size: 20px;
+            font-size: 19px;
             font-weight: 600;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             line-height: 1.4;
             color: #f0f0f5;
         }
 
+        /* Кнопки ответов */
         .options-container {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 12px;
-            margin-bottom: 25px;
+            gap: 10px;
+            margin-bottom: 20px;
         }
 
         .btn-option {
             background: rgba(255, 255, 255, 0.04);
             border: 1px solid rgba(255, 255, 255, 0.06);
             color: #d1d1e0;
-            padding: 16px;
-            border-radius: 16px;
-            font-size: 16px;
+            padding: 14px;
+            border-radius: 14px;
+            font-size: 15px;
             font-weight: 500;
             cursor: pointer;
             transition: all 0.2s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             text-align: left;
             padding-left: 20px;
+            padding-right: 20px;
         }
 
-        .btn-option:hover {
+        .btn-option:hover:not(:disabled) {
             background: rgba(255, 255, 255, 0.09);
             color: #fff;
             border-color: rgba(255, 255, 255, 0.2);
             transform: translateX(4px);
         }
 
+        /* Состояния кнопок при ответе */
+        .btn-option.correct {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%) !important;
+            color: white !important;
+            border-color: transparent !important;
+        }
+
+        .btn-option.wrong {
+            background: linear-gradient(135deg, #cb2d3e 0%, #ef473a 100%) !important;
+            color: white !important;
+            border-color: transparent !important;
+        }
+
+        .vote-percent {
+            font-size: 13px;
+            font-weight: bold;
+            opacity: 0.8;
+            display: none;
+        }
+
         /* Подсказки */
         .hints-container {
             display: flex;
             justify-content: center;
-            gap: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
             border-top: 1px solid rgba(255, 255, 255, 0.06);
             padding-top: 20px;
         }
 
         .btn-hint {
-            background: linear-gradient(135deg, #ff9900 0%, #ff5500 100%);
+            background: linear-gradient(135deg, #8E2DE2 0%, #4A00E0 100%);
             color: white;
             border: none;
-            padding: 10px 20px;
+            padding: 8px 16px;
             border-radius: 50px;
             font-weight: 700;
-            font-size: 13px;
+            font-size: 12px;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(255, 85, 0, 0.3);
+            box-shadow: 0 4px 15px rgba(74, 0, 224, 0.3);
             transition: all 0.2s;
         }
 
-        .btn-hint:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 85, 0, 0.5);
-        }
+        .btn-hint.skip { background: linear-gradient(135deg, #ff9900 0%, #ff5500 100%); box-shadow: 0 4px 15px rgba(255, 85, 0, 0.3); }
+        .btn-hint.audience { background: linear-gradient(135deg, #00B4DB 0%, #0083B0 100%); box-shadow: 0 4px 15px rgba(0, 180, 219, 0.3); }
 
-        .btn-hint:disabled {
-            opacity: 0.25;
-            cursor: not-allowed;
-            box-shadow: none;
-        }
+        .btn-hint:hover:not(:disabled) { transform: translateY(-2px); filter: brightness(1.2); }
+        .btn-hint:disabled { opacity: 0.3; cursor: not-allowed; filter: grayscale(1); box-shadow: none; }
     </style>
 </head>
 <body>
 
-    <!-- 1. ГЛАВНОЕ МЕНЮ -->
     <div id="menu-screen" class="screen active">
         <div class="glass-panel">
             <h1 class="game-title">QuizzLand</h1>
@@ -353,7 +347,6 @@
         </div>
     </div>
 
-    <!-- 2. ВЫБОР УРОВНЕЙ -->
     <div id="levels-screen" class="screen">
         <div class="glass-panel" style="padding: 50px 40px;">
             <h2 style="font-size: 28px; margin-bottom: 10px;">Выберите главу</h2>
@@ -375,63 +368,76 @@
         </div>
     </div>
 
-    <!-- 3. ИГРОВОЙ ЭКРАН -->
     <div id="game-screen" class="screen">
         <header>
             <button class="back-btn" onclick="switchScreen('levels-screen')">Сдаться</button>
             <div id="score-board"><span id="coins">100</span> 🪙</div>
         </header>
-
-        <div id="map-container">
-            <div id="map"></div>
-        </div>
+        <div id="map-container"><div id="map"></div></div>
     </div>
 
-    <!-- МОДАЛЬНОЕ ОКНО ВОПРОСА -->
     <div id="quiz-modal">
         <div class="modal-content">
-            <img id="question-img" class="question-image" src="" alt="Quizland pic">
+            <div id="category-badge" class="category-badge">Категория</div>
+            <img id="question-img" class="question-image" src="" alt="Quiz img">
             <h3 id="question-text">Загрузка вопроса...</h3>
             <div class="options-container" id="options"></div>
             
             <div class="hints-container">
-                <button id="hint-5050" class="btn-hint" onclick="useHint5050()">50 / 50 (25 🪙)</button>
-                <button id="hint-skip" class="btn-hint" onclick="useHintSkip()">Пропуск (40 🪙)</button>
+                <button id="hint-5050" class="btn-hint" onclick="useHint5050()">50/50 (25 🪙)</button>
+                <button id="hint-audience" class="btn-hint audience" onclick="useHintAudience()">Зал (30 🪙)</button>
+                <button id="hint-skip" class="btn-hint skip" onclick="useHintSkip()">Пропуск (40 🪙)</button>
             </div>
         </div>
     </div>
 
     <script>
-        // Обширная база неповторяющихся вопросов
+        // Масштабная база вопросов по категориям
         const questionsDatabase = [
-            { q: "Какая планета Солнечной системы самая большая?", a: ["Сатурн", "Юпитер", "Нептун", "Земля"], correct: 1, img: "https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4?w=500&q=80" },
-            { q: "Какая страна является родиной пиццы?", a: ["Франция", "Испания", "Италия", "Греция"], correct: 2, img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500&q=80" },
-            { q: "Что изображено на знаменитой картине Леонардо да Винчи?", a: ["Мона Лиза", "Звездная ночь", "Крик", "Герника"], correct: 0, img: "https://images.unsplash.com/photo-1580136579312-94651dfd596d?w=500&q=80" },
-            { q: "Какое животное является самым быстрым на суше?", a: ["Лев", "Гепард", "Антилопа", "Пума"], correct: 1, img: "https://images.unsplash.com/photo-1517849845537-4d257902454a?w=500&q=80" },
-            { q: "Какой океан самый большой по площади на Земле?", a: ["Атлантический", "Индийский", "Тихий", "Северный Ледовитый"], correct: 2, img: "https://images.unsplash.com/photo-1551244072-5d12893278ab?w=500&q=80" },
-            { q: "Какая игра стала самой продаваемой в истории индустрии?", a: ["GTA V", "Minecraft", "Tetris", "Wii Sports"], correct: 1, img: "https://images.unsplash.com/photo-1605901309584-818e25960a8f?w=500&q=80" },
-            { q: "В каком культовом фильме звучит фраза: «Я вернусь» (I'll be back)?", a: ["Терминатор", "Крепкий Орешек", "Рэмбо", "Хищник"], correct: 0, img: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=500&q=80" },
-            { q: "Какая химическая формула у обычной питьевой воды?", a: ["CO2", "NaCl", "H2O", "O2"], correct: 2, img: "https://images.unsplash.com/photo-1548811294-9465a4a240d5?w=500&q=80" },
-            { q: "Какое культовое аниме рассказывает о ниндзя по имени Наруто?", a: ["Блич", "Ван Пис", "Наруто", "Тетрадь Смерти"], correct: 2, img: "https://images.unsplash.com/photo-1578632767115-351597cf2477?w=500&q=80" },
-            { q: "Какое культовое существо красуется на логотипе игры Witcher 3?", a: ["Медведь", "Волк", "Дракон", "Грифон"], correct: 1, img: "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=500&q=80" },
-            { q: "Какая валюта используется на территории Японии?", a: ["Юань", "Вон", "Йена", "Доллар"], correct: 2, img: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=500&q=80" },
-            { q: "Сколько игроков находится на поле в одной футбольной команде?", a: ["9", "10", "11", "12"], correct: 2, img: "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=500&q=80" },
-            { q: "Какой самый высокий пик (гора) на нашей планете?", a: ["Килиманджаро", "Эльбрус", "Эверест", "К2"], correct: 2, img: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=500&q=80" },
-            { q: "Какая компания создала культовую операционную систему Windows?", a: ["Apple", "Google", "Microsoft", "Linux"], correct: 2, img: "https://images.unsplash.com/photo-1616440347437-b1c73416efc2?w=500&q=80" },
-            { q: "Из какого дерева, согласно мифам, делают колья против вампиров?", a: ["Дуб", "Осина", "Береза", "Тополь"], correct: 1, img: "https://images.unsplash.com/photo-1502082553048-f009c37129b9?w=500&q=80" },
-            { q: "Какая птица является официальным символом США?", a: ["Белоголовый орлан", "Беркут", "Сокол", "Ворон"], correct: 0, img: "https://images.unsplash.com/photo-1611689342806-0863700ce1e4?w=500&q=80" },
-            { q: "Какой цвет получится, если смешать синюю и желтую краску?", a: ["Фиолетовый", "Зеленый", "Оранжевый", "Коричневый"], correct: 1, img: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=500&q=80" },
-            { q: "Какое изобретение сделало знаменитыми братьев Райт?", a: ["Автомобиль", "Самолет", "Паровоз", "Телефон"], correct: 1, img: "https://images.unsplash.com/photo-1483450388369-9ed95738483c?w=500&q=80" },
-            { q: "Какой металл плавится прямо в руках при комнатной температуре?", a: ["Ртуть", "Галлий", "Свинец", "Натрий"], correct: 1, img: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=500&q=80" },
-            { q: "Кто написал культовую фантастическую трилогию «Властелин колец»?", a: ["Джордж Мартин", "Джоан Роулинг", "Дж. Р. Р. Толкин", "Стивен Кинг"], correct: 2, img: "https://images.unsplash.com/photo-1629992184111-c116ba06466c?w=500&q=80" }
+            // ГЕОГРАФИЯ
+            { category: "География", q: "Какая страна самая большая по площади в мире?", a: ["США", "Канада", "Китай", "Россия"], correct: 3, img: "https://images.unsplash.com/photo-1524661135-423995f22d0b?w=500&q=80" },
+            { category: "География", q: "Столицей какого государства является город Канберра?", a: ["Новая Зеландия", "Австралия", "Австрия", "ЮАР"], correct: 1, img: "https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?w=500&q=80" },
+            { category: "География", q: "Какая река считается самой длинной в мире?", a: ["Амазонка", "Нил", "Янцзы", "Миссисипи"], correct: 0, img: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=500&q=80" },
+            { category: "География", q: "В какой стране находится пустыня Сахара?", a: ["Египет", "На территории нескольких стран", "Марокко", "Алжир"], correct: 1, img: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=500&q=80" },
+            { category: "География", q: "Какой океан омывает берега Японии с востока?", a: ["Индийский", "Атлантический", "Тихий", "Северный Ледовитый"], correct: 2, img: "https://images.unsplash.com/photo-1498623116890-37e912163d5d?w=500&q=80" },
+            
+            // ИСТОРИЯ
+            { category: "История", q: "В каком году человек впервые полетел в космос?", a: ["1957", "1961", "1969", "1971"], correct: 1, img: "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=500&q=80" },
+            { category: "История", q: "Кем был Юлий Цезарь?", a: ["Греческим философом", "Римским полководцем", "Египетским фараоном", "Спартанским царем"], correct: 1, img: "https://images.unsplash.com/photo-1552288092-76e7d732366c?w=500&q=80" },
+            { category: "История", q: "Как назывался корабль, на котором Колумб открыл Америку?", a: ["Санта-Мария", "Нинья", "Пинта", "Мэйфлауэр"], correct: 0, img: "https://images.unsplash.com/photo-1534008757030-27299c4371b6?w=500&q=80" },
+            { category: "История", q: "Какая война длилась с 1939 по 1945 год?", a: ["Первая мировая", "Гражданская война в США", "Вторая мировая", "Холодная война"], correct: 2, img: "https://images.unsplash.com/photo-1580130379624-3a0690cb2eb0?w=500&q=80" },
+            
+            // НАУКА И ТЕХНОЛОГИИ
+            { category: "Наука", q: "Какая химическая формула у серной кислоты?", a: ["H2O", "HCl", "H2SO4", "NaCl"], correct: 2, img: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=500&q=80" },
+            { category: "Наука", q: "Какая планета Солнечной системы известна своими кольцами?", a: ["Юпитер", "Сатурн", "Уран", "Венера"], correct: 1, img: "https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4?w=500&q=80" },
+            { category: "Наука", q: "Как называется процесс, при котором растения образуют кислород?", a: ["Дыхание", "Фотосинтез", "Эволюция", "Транспирация"], correct: 1, img: "https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?w=500&q=80" },
+            { category: "Технологии", q: "Кто является основателем компании Tesla и SpaceX?", a: ["Джефф Безос", "Марк Цукерберг", "Илон Маск", "Билл Гейтс"], correct: 2, img: "https://images.unsplash.com/photo-1561580125-028ce3bbdf29?w=500&q=80" },
+            { category: "Технологии", q: "Какой язык разметки используется для создания структуры веб-страниц?", a: ["JavaScript", "Python", "CSS", "HTML"], correct: 3, img: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=500&q=80" },
+
+            // КУЛЬТУРА И ИСКУССТВО
+            { category: "Искусство", q: "Кто написал картину «Мона Лиза»?", a: ["Пабло Пикассо", "Винсент Ван Гог", "Леонардо да Винчи", "Микеланджело"], correct: 2, img: "https://images.unsplash.com/photo-1580136579312-94651dfd596d?w=500&q=80" },
+            { category: "Кино", q: "Какой фильм стал самым кассовым в истории (до 2020 года)?", a: ["Титаник", "Мстители: Финал", "Аватар", "Звездные войны"], correct: 2, img: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=500&q=80" },
+            { category: "Кино", q: "В какой вселенной существует планета Татуин?", a: ["Стартрек", "Звездные войны", "Дюна", "Доктор Кто"], correct: 1, img: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=500&q=80" },
+            { category: "Литература", q: "Как зовут мальчика, который выжил?", a: ["Питер Пэн", "Люк Скайуокер", "Фродо Бэггинс", "Гарри Поттер"], correct: 3, img: "https://images.unsplash.com/photo-1618944847023-38aa001235f0?w=500&q=80" },
+
+            // ИГРЫ
+            { category: "Игры", q: "В какой игре главный герой — ведьмак по имени Геральт?", a: ["The Elder Scrolls V: Skyrim", "Dragon Age", "The Witcher 3", "Dark Souls"], correct: 2, img: "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=500&q=80" },
+            { category: "Игры", q: "Как называется блочная игра-песочница от Mojang?", a: ["Roblox", "Terraria", "Minecraft", "Fortnite"], correct: 2, img: "https://images.unsplash.com/photo-1605901309584-818e25960a8f?w=500&q=80" },
+            { category: "Игры", q: "Какая игра популяризовала жанр «Королевская битва» в 2017 году?", a: ["Apex Legends", "PUBG", "Call of Duty: Warzone", "Overwatch"], correct: 1, img: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=500&q=80" },
+            { category: "Игры", q: "Какой водопроводчик носит красную кепку и спасает принцессу Пич?", a: ["Луиджи", "Варио", "Боузер", "Марио"], correct: 3, img: "https://images.unsplash.com/photo-1612404730960-5c71577fca11?w=500&q=80" },
+
+            // РАЗНОЕ
+            { category: "Разное", q: "Сколько дней в високосном году?", a: ["364", "365", "366", "367"], correct: 2, img: "https://images.unsplash.com/photo-1506784983877-45594efa4cbe?w=500&q=80" },
+            { category: "Разное", q: "Какое животное является символом Всемирного фонда дикой природы (WWF)?", a: ["Белый медведь", "Тигр", "Большая панда", "Коала"], correct: 2, img: "https://images.unsplash.com/photo-1564349683136-77e08dba1ef7?w=500&q=80" },
+            { category: "Разное", q: "Какой цвет получается при смешивании синего и желтого?", a: ["Зеленый", "Оранжевый", "Фиолетовый", "Коричневый"], correct: 0, img: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=500&q=80" }
         ];
 
-        let poolOfQuestions = []; // Динамический пул вопросов без повторений
+        let poolOfQuestions = [];
         let coins = 100;
         let currentTileIndex = null;
         let currentQuestion = null;
+        let isAnswering = false; // Блокировка кликов во время анимации
 
-        // Инициализация/сброс пула неповторяющихся вопросов
         function refreshQuestionPool() {
             poolOfQuestions = [...questionsDatabase];
         }
@@ -443,11 +449,10 @@
 
         function startLevel(levelNum, size) {
             switchScreen('game-screen');
-            refreshQuestionPool(); // Обновляем вопросы для каждого уровня заново
+            refreshQuestionPool();
             
             const mapElement = document.getElementById('map');
             mapElement.innerHTML = '';
-            
             mapElement.style.gridTemplateColumns = `repeat(${size}, 80px)`;
             mapElement.style.gridTemplateRows = `repeat(${size}, 80px)`;
 
@@ -463,17 +468,13 @@
         }
 
         function handleTileClick(index, tile) {
-            if (tile.classList.contains('solved') || tile.classList.contains('opened')) return;
+            if (tile.classList.contains('solved') || tile.classList.contains('opened') || isAnswering) return;
 
             currentTileIndex = index;
             tile.className = 'tile opened';
 
-            // Если все вопросы закончились, перезапускаем пул
-            if (poolOfQuestions.length === 0) {
-                refreshQuestionPool();
-            }
+            if (poolOfQuestions.length === 0) refreshQuestionPool();
 
-            // Достаем случайный вопрос и УДАЛЯЕМ его из текущего пула
             const randomIndex = Math.floor(Math.random() * poolOfQuestions.length);
             currentQuestion = poolOfQuestions.splice(randomIndex, 1)[0];
 
@@ -481,43 +482,86 @@
         }
 
         function showQuestion(questionData) {
+            isAnswering = false;
+            document.getElementById('category-badge').innerText = questionData.category;
             document.getElementById('question-img').src = questionData.img;
             document.getElementById('question-text').innerText = questionData.q;
+            
             const optionsContainer = document.getElementById('options');
             optionsContainer.innerHTML = '';
 
             document.getElementById('hint-5050').disabled = coins < 25;
+            document.getElementById('hint-audience').disabled = coins < 30;
             document.getElementById('hint-skip').disabled = coins < 40;
 
             questionData.a.forEach((option, idx) => {
                 const btn = document.createElement('button');
                 btn.classList.add('btn-option');
-                btn.innerText = option;
                 btn.dataset.idx = idx;
-                btn.addEventListener('click', () => checkAnswer(idx, questionData.correct));
+                
+                // Текст ответа
+                const spanText = document.createElement('span');
+                spanText.innerText = option;
+                btn.appendChild(spanText);
+
+                // Процент для зала (скрыт по умолчанию)
+                const spanPercent = document.createElement('span');
+                spanPercent.classList.add('vote-percent');
+                spanPercent.id = `percent-${idx}`;
+                btn.appendChild(spanPercent);
+
+                btn.addEventListener('click', (e) => checkAnswer(idx, questionData.correct, e.currentTarget));
                 optionsContainer.appendChild(btn);
             });
 
             document.getElementById('quiz-modal').style.display = 'flex';
         }
 
-        function checkAnswer(selectedIdx, correctIdx) {
-            document.getElementById('quiz-modal').style.display = 'none';
+        function checkAnswer(selectedIdx, correctIdx, btnElement) {
+            if (isAnswering) return;
+            isAnswering = true; // Блокируем другие кнопки
+
+            // Блокируем подсказки во время проверки
+            document.querySelectorAll('.btn-hint').forEach(b => b.disabled = true);
+            const allButtons = document.querySelectorAll('.btn-option');
+            allButtons.forEach(btn => btn.style.pointerEvents = 'none');
+
             const activeTile = document.querySelector(`.tile[data-index='${currentTileIndex}']`);
 
             if (selectedIdx === correctIdx) {
-                activeTile.className = 'tile solved';
-                activeTile.innerText = "✦";
+                // ПРАВИЛЬНЫЙ ОТВЕТ
+                btnElement.classList.add('correct');
                 coins += 20;
+                
+                setTimeout(() => {
+                    document.getElementById('quiz-modal').style.display = 'none';
+                    activeTile.className = 'tile solved';
+                    activeTile.innerText = "✦";
+                    updateUI();
+                }, 1000); // Ждем 1 секунду
             } else {
-                activeTile.className = 'tile closed';
-                activeTile.innerText = "?";
+                // НЕПРАВИЛЬНЫЙ ОТВЕТ
+                btnElement.classList.add('wrong');
+                // Подсвечиваем правильный
+                allButtons.forEach(btn => {
+                    if (parseInt(btn.dataset.idx) === correctIdx) {
+                        btn.classList.add('correct');
+                    }
+                });
+
+                setTimeout(() => {
+                    document.getElementById('quiz-modal').style.display = 'none';
+                    activeTile.className = 'tile closed';
+                    activeTile.innerText = "?";
+                    updateUI();
+                }, 2500); // Даем 2.5 секунды посмотреть правильный ответ
             }
-            updateUI();
         }
 
+        // --- ПОДСКАЗКИ ---
+
         function useHint5050() {
-            if (coins < 25) return;
+            if (coins < 25 || isAnswering) return;
             coins -= 25;
             updateUI();
             document.getElementById('hint-5050').disabled = true;
@@ -528,13 +572,49 @@
             wrongButtons.sort(() => Math.random() - 0.5);
             wrongButtons.slice(0, 2).forEach(btn => {
                 btn.style.opacity = '0.15';
-                btn.disabled = true;
-                btn.style.cursor = 'not-allowed';
+                btn.style.pointerEvents = 'none';
+            });
+        }
+
+        function useHintAudience() {
+            if (coins < 30 || isAnswering) return;
+            coins -= 30;
+            updateUI();
+            document.getElementById('hint-audience').disabled = true;
+
+            // Генерируем фейковые проценты
+            let remaining = 100;
+            const correctPercent = Math.floor(Math.random() * 20) + 55; // 55% - 74% всегда правильному
+            remaining -= correctPercent;
+
+            const percents = [0, 0, 0, 0];
+            percents[currentQuestion.correct] = correctPercent;
+
+            const wrongIndices = [0, 1, 2, 3].filter(i => i !== currentQuestion.correct);
+            
+            percents[wrongIndices[0]] = Math.floor(Math.random() * (remaining - 5));
+            remaining -= percents[wrongIndices[0]];
+            percents[wrongIndices[1]] = Math.floor(Math.random() * remaining);
+            remaining -= percents[wrongIndices[1]];
+            percents[wrongIndices[2]] = remaining; // остаток последнему
+
+            // Показываем проценты на кнопках
+            const buttons = document.querySelectorAll('.btn-option');
+            buttons.forEach(btn => {
+                const idx = parseInt(btn.dataset.idx);
+                const percentSpan = btn.querySelector('.vote-percent');
+                percentSpan.innerText = `${percents[idx]}%`;
+                percentSpan.style.display = 'inline';
+                
+                // Легкая подсветка лидера
+                if (idx === currentQuestion.correct) {
+                    btn.style.borderLeft = "4px solid #00B4DB";
+                }
             });
         }
 
         function useHintSkip() {
-            if (coins < 40) return;
+            if (coins < 40 || isAnswering) return;
             coins -= 40;
             document.getElementById('quiz-modal').style.display = 'none';
             
